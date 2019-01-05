@@ -15,16 +15,24 @@ ActiveRecord::Schema.define(version: 2018_12_20_002612) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "areas", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "rooms", force: :cascade do |t|
     t.bigint "north_id"
     t.bigint "east_id"
     t.bigint "south_id"
     t.bigint "west_id"
-    t.string "description"
-    t.boolean "contains_grid"
+    t.bigint "area_id"
     t.string "name"
+    t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["area_id"], name: "index_rooms_on_area_id"
     t.index ["east_id"], name: "index_rooms_on_east_id"
     t.index ["north_id"], name: "index_rooms_on_north_id"
     t.index ["south_id"], name: "index_rooms_on_south_id"
